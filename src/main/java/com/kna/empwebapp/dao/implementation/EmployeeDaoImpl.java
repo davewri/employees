@@ -28,7 +28,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     private final String SELECT_SQL_BY_SEARCH = "SELECT * FROM dbo.Employee WHERE EmployeeName like :search or Email like :search";
     private final String INSERT_SQL = "INSERT INTO Employee(EmployeeName,DepartmentId,EmpAddress,Email,Telephone,StartYear,Qualification,Experience) values(?,?,?,?,?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE dbo.Employee SET EmployeeName = ?, DepartmentId = ?, EmpAddress = ?, Telephone = ?, Email = ?, StartYear = ?, Qualification = ?, Experience = ? WHERE EmployeeId = ?";
+    private final String UPDATE_SQL = "UPDATE dbo.Employee SET EmployeeName = ?, DepartmentId = ?, EmpAddress = ?, Email = ?, Telephone = ?, StartYear = ?, Qualification = ?, Experience = ? WHERE EmployeeId = ?";
     private final String DELETE_SQL_BY_ID = "DELETE FROM dbo.Employee WHERE EmployeeId = ?";
 
     @Autowired
@@ -53,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         // Update employee using values in employee object passed as a parameter
         // As this is an update a new primary key id is not required
 
-        // The query requires 6 parameters which will be passed as an object
+        // The query requires 8 parameters which will be passed as an object
         Object[] params = {
                 employee.getEmployeeName(),
                 employee.getDepartmentId(),
@@ -62,7 +62,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.getTelephone(),
                 employee.getStartYear(),
                 employee.getQualification(),
-                employee.getExperience()
+                employee.getExperience(),
+                employee.getEmployeeId()
         };
 
         // execute the query using params, returning the number of rows affected
@@ -86,9 +87,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 ps.setString(3, employee.getEmpAddress());
                 ps.setString(4, employee.getEmail());
                 ps.setString(5, employee.getTelephone());
-                ps.setInt(5, employee.getStartYear());
-                ps.setString(5, employee.getQualification());
-                ps.setString(5, employee.getExperience());
+                ps.setInt(6, employee.getStartYear());
+                ps.setString(7, employee.getQualification());
+                ps.setString(8, employee.getExperience());
 
                 // return the completed statement
                 return ps;
